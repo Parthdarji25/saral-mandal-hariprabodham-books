@@ -15,10 +15,9 @@ export const subscribe = (fn) => { listeners.add(fn); return () => listeners.del
 const emit = () => listeners.forEach((fn) => { try { fn(); } catch (e) { console.error(e); } });
 
 export const isAdmin = () => !!session;
-/** The Admin button only appears for someone who has opened the secret admin address (or is signed in). */
-export const isRevealed = () => !!session || read('sessionStorage', 'smh:adminseen') === '1';
-export function reveal() { if (!isRevealed()) { write('sessionStorage', 'smh:adminseen', '1'); emit(); } }
 export const hasToken = () => !!(session && session.token);
+/** The Admin button shows only while the secret admin address is open, or while signed in. */
+export const isRevealed = () => !!session || location.hash.startsWith('#/parth-admin-0369');
 export const info = () => (session ? { owner: session.owner, repo: session.repo, branch: session.branch, remember: session.remember, expiresAt: session.expiresAt } : null);
 
 // ---------- storage (every call guarded) ----------

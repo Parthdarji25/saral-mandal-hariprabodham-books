@@ -95,3 +95,4 @@ Local test server: `python -m http.server 8000`. Headless browser: Edge via pupp
 - Final check: all edge-case tests pass; desktop 1440 / phone 375 have no horizontal scroll or console errors; fixed a search panel that stayed open after navigating away, and gave small phone chips/buttons a 44px touch area.
 - Removed the Test commit button from the Admin panel (and its README paragraph) as it is not needed.
 - Removed dry-run mode everywhere (sign-in checkbox, admin switch/badge, ?dryrun=1, token-less sign-in, plan dialog). Sign-in is token only. Verified the real save path against a mocked GitHub API: one commit (blob, tree, commit, ref PATCH with force:false), no writes to the real repo.
+- Admin button now shows only while signed in or while the secret address is open; signing out closes the admin window, returns home and hides the button. Removed the old per-session reveal flag.

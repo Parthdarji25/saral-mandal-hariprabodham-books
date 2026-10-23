@@ -241,7 +241,7 @@ function buildPanel({ phone }) {
         h('button', { type: 'button', class: 'btn big', onClick: () => newFolder(null) }, icon('folderPlus', 16), ' New folder'),
         h('button', { type: 'button', class: 'btn big', onClick: () => newTopic() }, icon('tag', 16), ' New topic'),
         h('button', { type: 'button', class: 'btn big', onClick: () => editSettings() }, icon('gear', 16), ' Site settings'),
-        h('button', { type: 'button', class: 'btn big danger', onClick: () => { auth.signOut(); toast('Signed out.'); } }, ' Sign out')),
+        h('button', { type: 'button', class: 'btn big danger', onClick: () => { auth.signOut(); if (panelWin) panelWin.close(); toast('Signed out.'); import('../router.js').then((r) => r.go('home', '', {}, { replace: true })); } }, ' Sign out')),
       h('div', { class: 'admin-card' }, h('h3', { text: 'Keeping your data safe' }),
         h('ul', { class: 'tips' },
           h('li', { text: 'Every change is a commit, so GitHub keeps every old version. Undo with “git revert”, or restore a file from the History page.' }),

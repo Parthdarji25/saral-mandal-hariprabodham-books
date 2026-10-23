@@ -98,7 +98,7 @@ export function mountPhone(root) {
       case 'search': built = searchScreen(route.params.q || ''); tab = 'search'; break;
       case 'notebook': built = notebookScreen(); tab = 'notebook'; break;
       case 'reader': built = (await import('./reader-mobile.js')).readerScreen(route); tab = null; break;
-      case router.ADMIN_ROUTE: auth.reveal(); built = (await import('../admin/admin.js')).phonePanel(); tab = 'home'; break;
+      case router.ADMIN_ROUTE: built = (await import('../admin/admin.js')).phonePanel(); tab = 'home'; break;
       default: built = homeScreen(); tab = null;
     }
     if (current !== route) return; // a newer navigation won the race

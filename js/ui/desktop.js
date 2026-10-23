@@ -54,6 +54,7 @@ export function mountDesktop(root) {
   }
 
   function handleRoute(route) {
+    renderAdminSlot();
     if (route.name !== 'search') { previous = route; if (searchOpen) import('./spotlight.js').then((m) => m.close()); }
     switch (route.name) {
       case 'library': launch('library', route.params); break;
@@ -61,7 +62,7 @@ export function mountDesktop(root) {
       case 'recent': launch('library', { recent: '1' }); break;
       case 'reader': launch('reader', route); break;
       case 'notebook': launch('notebook', route); break;
-      case router.ADMIN_ROUTE: auth.reveal(); launch('admin', route); break;
+      case router.ADMIN_ROUTE: launch('admin', route); break;
       case 'search': openSearch(route.params.q || ''); break;
       default: break;
     }
