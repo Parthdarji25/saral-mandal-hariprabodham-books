@@ -19,6 +19,25 @@
       "topics": [],
       "addedAt": "2026-10-23T04:48:53.834Z",
       "updatedAt": "2026-10-23T04:48:53.834Z"
+    },
+    {
+      "id": "bhagavan-swaminarayan-2-ferg",
+      "title": "Bhagavan Swaminarayan 2",
+      "titleLocal": "ભગવાન સ્વામિનારાયણ ૨",
+      "author": "",
+      "tradition": "",
+      "language": "Gujarati",
+      "description": "https://www.youtube.com/watch?v=B3ITM526EBU",
+      "file": "books/bhagavan-swaminarayan-2-ferg.pdf",
+      "pages": 107,
+      "sizeBytes": 1077923,
+      "color": "#B4520F",
+      "folders": [
+        "swaminarayan-bhagwan-books-qlxf"
+      ],
+      "topics": [],
+      "addedAt": "2026-10-23T04:57:56.074Z",
+      "updatedAt": "2026-10-23T04:57:56.074Z"
     }
   ]
 }
