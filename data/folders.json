@@ -1,1 +1,13 @@
-{ "version": 1, "folders": [] }
+{
+  "version": 1,
+  "folders": [
+    {
+      "id": "swaminarayan-bhagwan-books-qlxf",
+      "name": "Swaminarayan Bhagwan Books",
+      "nameLocal": "સ્વામિનારાયણ ભગવાનનાં ગુજરાતી પુસ્તકો",
+      "parentId": null,
+      "color": "amber",
+      "order": 0
+    }
+  ]
+}
