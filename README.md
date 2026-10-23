@@ -21,7 +21,6 @@ Open <http://localhost:8000>.
 
 - Test the desktop at full width, and the phone layout in the browser's device toolbar at 390×844.
 - The browser console should show no errors.
-- To try the admin tools without saving anything, open `http://localhost:8000/?dryrun=1#/parth-admin-0369`, then Sign in with Dry run ticked. In dry-run mode every save shows the exact commit it *would* make and writes nothing.
 
 ## Put it online (GitHub Pages)
 

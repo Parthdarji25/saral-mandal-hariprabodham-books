@@ -1,5 +1,5 @@
 // Admin: the panel (sign-in status, library size, quick actions, data-safety tips) and the folder, topic,
-// membership and settings actions. Every action ends in runCommit(), which makes ONE commit (or a dry-run plan).
+// membership and settings actions. Every action ends in runCommit(), which makes ONE commit.
 import { h, clear, add, fmtBytes, plural, makeId } from '../dom.js';
 import * as store from '../store.js';
 import * as auth from './auth.js';
@@ -227,17 +227,14 @@ function buildPanel({ phone }) {
     if (!me) {
       add(root, h('div', { class: 'admin-card center' }, icon('gear', 44), h('h3', { text: 'Admin' }),
         h('p', { text: 'Sign in with a GitHub token to add books, folders and topics. Visitors never see these controls.' }),
-        h('button', { type: 'button', class: 'btn primary big', text: 'Sign in', onClick: () => auth.openSignIn() }),
-        new URLSearchParams(location.search).get('dryrun') === '1' ? h('p', { class: 'dry-banner', text: 'Dry-run mode is on (?dryrun=1): nothing will be saved.' }) : null));
+        h('button', { type: 'button', class: 'btn primary big', text: 'Sign in', onClick: () => auth.openSignIn() })));
       return;
     }
-    const sizeBox = h('p', { class: 'hint', text: me.signedInWithToken ? 'Checking the size of your books…' : 'Library size is shown when signed in with a token.' });
+    const sizeBox = h('p', { class: 'hint', text: 'Checking the size of your books…' });
     add(root,
       h('div', { class: 'admin-card' },
         h('div', { class: 'admin-row' }, h('strong', { text: 'Connected to' }), h('span', { class: 'mono', text: `${me.owner}/${me.repo} (${me.branch})` })),
-        h('div', { class: 'admin-row' }, h('strong', { text: 'Mode' }), me.dryRun ? h('span', { class: 'badge warn', text: 'Dry run: nothing is saved' }) : h('span', { class: 'badge ok', text: 'Live: changes are saved to GitHub' })),
-        me.signedInWithToken ? h('div', { class: 'admin-row' }, h('strong', { text: 'Token' }), h('span', { text: auth.expiryText() })) : null,
-        me.signedInWithToken && !me.forcedDry ? h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: me.dryRun, onChange: (e) => auth.setDryRun(e.target.checked) }), h('span', { text: 'Dry run (show each commit, save nothing)' })) : null,
+        h('div', { class: 'admin-row' }, h('strong', { text: 'Token' }), h('span', { text: auth.expiryText() })),
         sizeBox),
       h('div', { class: 'admin-actions' },
         h('button', { type: 'button', class: 'btn primary big', onClick: () => import('./book-form.js').then((m) => m.addBook({ folderId: null })) }, icon('plus', 16), ' Add PDF'),
@@ -252,7 +249,7 @@ function buildPanel({ phone }) {
           h('li', { text: 'Keep a backup now and then: “git pull” on your computer, or Code → Download ZIP.' }),
           h('li', { text: 'If a token leaks, delete it at GitHub → Settings → Developer settings → Fine-grained tokens, then make a new one.' }),
           h('li', { text: 'Everything here is public. Upload only books you have the right to share.' }))));
-    if (me.signedInWithToken) {
+    {
       const token = ++sizeToken;
       auth.getClient().booksSize().then(({ bytes, truncated }) => {
         if (token !== sizeToken || !sizeBox.isConnected) return;

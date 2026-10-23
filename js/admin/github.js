@@ -1,5 +1,5 @@
 // GitHub API client for the admin: reads, atomic multi-file commits (Git Data API), PDF upload with progress,
-// conflict retry, and dry-run mode (writes are planned and returned, never sent).
+// and conflict handling.
 // The token is only ever sent to https://api.github.com and never appears in logs, URLs or error messages.
 
 const API = 'https://api.github.com';
@@ -39,7 +39,7 @@ function readAsBase64(blob) {
 }
 
 /**
- * config: { getToken(), owner, repo, branch, dryRun, onAuthError(err), onExpiry(dateString) }
+ * config: { getToken(), owner, repo, branch, onAuthError(err), onExpiry(dateString) }
  */
 export function createClient(config) {
   const { owner, repo, branch } = config;
@@ -88,8 +88,6 @@ export function createClient(config) {
   }
 
   const api = {
-    dryRun: !!config.dryRun,
-
     /** Tests the connection: the repository must be visible and writable. */
     async checkAccess() {
       const info = await request('GET', '');
@@ -120,18 +118,15 @@ export function createClient(config) {
 
     /**
      * ONE atomic commit. files: [{ path, text } | { path, blob: File|Blob } | { path, delete: true }].
-     * In dry-run mode nothing is sent; the planned commit is returned instead.
      */
     async commit({ message, files, onProgress }) {
       if (!files.length) throw new GitHubError('invalid', 'There is nothing to save.');
       files.forEach((f) => assertSafePath(f.path));
       const plan = {
-        dryRun: !!config.dryRun, message, branch,
+        message, branch,
         files: files.map((f) => ({ path: f.path, action: f.delete ? 'delete' : 'write', bytes: f.delete ? 0 : f.blob ? f.blob.size : utf8(f.text) })),
       };
       plan.totalBytes = plan.files.reduce((s, f) => s + f.bytes, 0);
-      if (config.dryRun) return plan;
-
       const head = await request('GET', `/git/ref/heads/${encodeURIComponent(branch)}`);
       const parent = head.object.sha;
       const parentCommit = await request('GET', `/git/commits/${parent}`);

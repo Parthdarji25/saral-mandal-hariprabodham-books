@@ -1,5 +1,5 @@
 // The one path every admin change takes: read the newest data, apply the change, show the planned commit with an
-// editable message, then write ONE atomic commit (or, in dry-run mode, show the plan and write nothing).
+// editable message, then write ONE atomic commit.
 import { h, clear, add, fmtBytes, plural } from '../dom.js';
 import * as store from '../store.js';
 import * as auth from './auth.js';
@@ -20,7 +20,7 @@ async function loadFresh() {
       const docs = await Promise.all(DOC_KEYS.map((k) => read(store.DATA_FILES[k])));
       return Object.fromEntries(DOC_KEYS.map((k, i) => [k, docs[i]]));
     } catch (e) {
-      if (!auth.isDryRun()) throw e;
+      throw e;
     }
   }
   return store.getRaw();
@@ -67,13 +67,12 @@ function fileList(files) {
  * Options: message (default commit message), apply, and optionally title / intro (text or node shown first) / danger.
  * apply(work) edits a copy of { books, folders, topics, settings } and may return { files: [{ path, blob } | { path, delete: true }], notes: [text] }.
  * Throw an Error from apply to refuse the change (the caller's form shows the message).
- * Resolves with the commit result (or the dry-run plan), or null if cancelled.
+ * Resolves with the commit result, or null if cancelled.
  */
 export async function runCommit({ message, apply, title, intro, danger = false }) {
   if (!(await ensureSignedIn())) return null;
   let prepared = await prepare(apply);
   if (!prepared.files.length) { toast('Nothing changed, so there is nothing to save.'); return null; }
-  const dry = auth.isDryRun();
 
   return new Promise((resolve) => {
     let finished = false;
@@ -87,15 +86,15 @@ export async function runCommit({ message, apply, title, intro, danger = false }
     drawList();
     const body = h('div', {},
       intro ? (typeof intro === 'string' ? h('p', { class: 'intro', text: intro }) : intro) : null,
-      dry ? h('p', { class: 'dry-banner', text: 'Dry run: nothing will be saved to GitHub. You will see exactly what would be committed.' }) : h('p', { text: 'This saves one commit to GitHub. The live site updates in about 1–2 minutes.' }),
+      h('p', { text: 'This saves one commit to GitHub. The live site updates in about 1–2 minutes.' }),
       h('div', { class: 'field' }, h('label', { text: 'Commit message' }, msgInput)),
       h('div', { class: 'label-caps', text: plural(prepared.files.length, 'file') + ' in this commit' }), listHost, notesHost, bar, barText);
 
     const dlg = openDialog({
-      title: title || (dry ? 'Preview commit (dry run)' : 'Save to GitHub'), body, wide: true,
+      title: title || 'Save to GitHub', body, wide: true,
       actions: [
         { label: 'Cancel', kind: 'cancel' },
-        { label: dry ? 'Show planned commit' : danger ? 'Delete and save to GitHub' : 'Save to GitHub', kind: danger && !dry ? 'danger' : 'primary', onClick: async () => {
+        { label: danger ? 'Delete and save to GitHub' : 'Save to GitHub', kind: danger ? 'danger' : 'primary', onClick: async () => {
           const client = auth.getClient();
           const text = cleanMessage(msgInput.value) || cleanMessage(message);
           const attempt = async (retried) => {
@@ -113,26 +112,12 @@ export async function runCommit({ message, apply, title, intro, danger = false }
           const result = await attempt(false);
           store.setRaw(prepared.work); // the screen updates right away
           finished = true;
-          if (result.dryRun) showPlan(result);
-          else toast('Saved to GitHub ✓ — live in a few minutes (usually 1–2)', { href: result.url, linkText: 'View commit', ms: 8000 });
+          toast('Saved to GitHub ✓ — live in a few minutes (usually 1–2)', { href: result.url, linkText: 'View commit', ms: 8000 });
           resolve(result);
         } },
       ],
       onClose: () => { if (!finished) resolve(null); },
     });
     return dlg;
-  });
-}
-
-export function showPlan(plan) {
-  openDialog({
-    title: 'Dry run: nothing was saved', wide: true,
-    body: h('div', {},
-      h('p', { class: 'dry-banner', text: 'This is exactly the commit that would be written to branch “' + plan.branch + '”. Nothing was sent to GitHub.' }),
-      h('div', { class: 'label-caps', text: 'Commit message' }), h('p', { class: 'plan-message', text: plan.message }),
-      h('div', { class: 'label-caps', text: 'Files' }),
-      h('table', { class: 'plan-table' }, h('tbody', {}, plan.files.map((f) => h('tr', { class: f.action === 'delete' ? 'del' : '' }, h('td', { text: f.action === 'delete' ? 'delete' : 'write' }), h('td', { class: 'mono', text: f.path }), h('td', { class: 'num', text: f.action === 'delete' ? '' : fmtBytes(f.bytes) }))))),
-      h('p', { class: 'hint', text: `${plural(plan.files.length, 'file')}, ${fmtBytes(plan.totalBytes)} in total. One commit.` })),
-    actions: [{ label: 'Close', kind: 'primary' }],
   });
 }

@@ -66,7 +66,7 @@ function bookForm({ book, folderId }) {
   });
 
   const body = h('div', {},
-    editing ? null : h('p', { class: 'dry-banner', text: 'Everything you add here is public on the internet. Only add books you have the right to share.' }),
+    editing ? null : h('p', { class: 'note-warn', text: 'Everything you add here is public on the internet. Only add books you have the right to share.' }),
     field(editing ? 'Replace PDF (optional)' : 'PDF file', fileInput), fileInfo,
     field('Title', title), field('Gujarati title', titleLocal), h('div', { class: 'field-row' }, field('Author', author), field('Tradition', tradition)),
     field('Language', language), h('datalist', { id: 'lang-list' }, ['English', 'Gujarati', 'Sanskrit', 'Hindi'].map((l) => h('option', { value: l }))),

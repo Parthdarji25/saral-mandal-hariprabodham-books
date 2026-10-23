@@ -169,7 +169,7 @@ export function mountDesktop(root) {
     clear(adminSlot);
     if (!auth.isRevealed()) return; // visitors never see an Admin button
     add(adminSlot, auth.isAdmin()
-      ? h('button', { type: 'button', class: 'menu-btn admin-badge', title: 'Admin panel', onClick: () => openApp('admin') }, icon('gear', 15), ' Admin ', auth.isDryRun() ? h('em', { text: 'dry run' }) : null)
+      ? h('button', { type: 'button', class: 'menu-btn admin-badge', title: 'Admin panel', onClick: () => openApp('admin') }, icon('gear', 15), ' Admin ')
       : h('button', { type: 'button', class: 'menu-btn', onClick: () => openApp('admin') }, 'Admin'));
   }
 
