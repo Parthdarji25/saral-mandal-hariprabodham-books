@@ -214,14 +214,6 @@ export const editSettings = guard(async () => {
     } }] });
 });
 
-// ---------- test commit (a button for the owner to press after launch) ----------
-export const testCommit = guard(async () => {
-  if (!(await ensureSignedIn())) return;
-  const first = await runCommit({ title: 'Test commit (1 of 2)', message: 'admin: test commit (adds data/.admin-test)', apply: () => ({ files: [{ path: 'data/.admin-test', text: 'admin test ' + new Date().toISOString() + '\n' }] }) });
-  if (!first) return;
-  await runCommit({ title: 'Test commit (2 of 2)', message: 'admin: test commit (removes data/.admin-test)', apply: () => ({ files: [{ path: 'data/.admin-test', delete: true }] }) });
-});
-
 // ---------- the panel ----------
 function buildPanel({ phone }) {
   const root = h('div', { class: 'admin-panel' + (phone ? ' phone-admin' : '') });
@@ -252,7 +244,6 @@ function buildPanel({ phone }) {
         h('button', { type: 'button', class: 'btn big', onClick: () => newFolder(null) }, icon('folderPlus', 16), ' New folder'),
         h('button', { type: 'button', class: 'btn big', onClick: () => newTopic() }, icon('tag', 16), ' New topic'),
         h('button', { type: 'button', class: 'btn big', onClick: () => editSettings() }, icon('gear', 16), ' Site settings'),
-        h('button', { type: 'button', class: 'btn big', onClick: () => testCommit() }, icon('check', 16), ' Test commit'),
         h('button', { type: 'button', class: 'btn big danger', onClick: () => { auth.signOut(); toast('Signed out.'); } }, ' Sign out')),
       h('div', { class: 'admin-card' }, h('h3', { text: 'Keeping your data safe' }),
         h('ul', { class: 'tips' },

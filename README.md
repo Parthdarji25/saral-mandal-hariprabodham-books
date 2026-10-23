@@ -45,7 +45,6 @@ You add and edit books on the live site itself; no git commands are needed.
 
 Limits: PDFs over 25 MB give a warning; over 95 MB are refused (GitHub's limit is 100 MB). For bigger files use git or GitHub Desktop. The Admin panel shows how big the `books/` folder is and warns at 800 MB (GitHub Pages sites can be at most 1 GB). If it fills up, compress the PDFs.
 
-After you launch, press **Test commit** in the Admin panel once. It writes and then removes a small file (`data/.admin-test`) in two commits to prove that saving works.
 
 ## Keeping your data safe
 
