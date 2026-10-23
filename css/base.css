@@ -1,0 +1,105 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--ink);
+  background: #1F2358;
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, p { margin: 0; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--accent); }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Gujarati text: Hind Vadodara, never letter-spaced or broken mid-word */
+.gu, [lang="gu"] { font-family: var(--font-gu); letter-spacing: 0 !important; text-transform: none !important; word-break: keep-all; overflow-wrap: break-word; }
+.gu { color: var(--accent-dark); }
+
+:focus-visible { outline: 3px solid #4867C9; outline-offset: 2px; border-radius: 6px; }
+.on-dark :focus-visible, .dark :focus-visible { outline-color: #FFD9A0; }
+
+#wallpaper { position: fixed; inset: 0; z-index: 0; }
+#wallpaper svg { width: 100%; height: 100%; display: block; }
+#app { position: fixed; inset: 0; z-index: 1; height: 100dvh; }
+
+.noscript { position: fixed; inset: 0; z-index: 99; display: grid; place-items: center; color: #fff; background: #1F2358; padding: 24px; text-align: center; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 38px; padding: 0 14px; border-radius: 9px; border: 1px solid var(--border-soft);
+  background: #fff; color: var(--ink); font-size: 14px; font-weight: 600; white-space: nowrap;
+}
+.btn:hover:not(:disabled) { background: #F7F5FA; }
+.btn svg { width: 17px; height: 17px; flex: none; }
+.btn.primary { background: var(--accent); color: #fff; border-color: transparent; font-weight: 700; }
+.btn.primary:hover:not(:disabled) { background: var(--accent-dark); }
+.btn.danger { color: var(--danger); }
+.btn.dark { background: var(--ink); color: #fff; border-color: transparent; }
+.btn.icon { padding: 0; width: 38px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+.btn.big { min-height: 44px; border-radius: 10px; }
+
+/* Inputs */
+.input, .textarea, .select {
+  width: 100%; min-height: 38px; padding: 0 12px; border: 1px solid var(--border-soft);
+  border-radius: 10px; background: #fff; font-size: 14px;
+}
+.textarea { padding: 10px 12px; min-height: 84px; resize: vertical; line-height: 1.45; }
+.input:focus, .textarea:focus, .select:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.field { display: grid; gap: 6px; margin-bottom: 12px; }
+.field > label, .field > .label { font-size: 12px; font-weight: 700; color: var(--text-soft); }
+.field .hint { font-size: 12px; color: var(--muted); }
+.check { display: flex; align-items: center; gap: 8px; min-height: 32px; font-size: 14px; }
+.check input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+/* Labels, chips, empty states */
+.label-caps { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 10px; border-radius: 999px; background: #F3F0F6; font-size: 13px; font-weight: 600; }
+.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--dot, #6B6F7E); }
+.empty { display: grid; justify-items: center; align-content: center; gap: 10px; text-align: center; padding: 48px 24px; color: var(--muted); }
+.empty h3 { font-size: 20px; font-weight: 800; color: var(--ink); }
+.empty p { max-width: 380px; line-height: 1.5; font-size: 14px; }
+.empty .art { width: 72px; height: 72px; color: var(--accent); opacity: .85; }
+.spinner { width: 28px; height: 28px; border-radius: 50%; border: 3px solid #E4E0EA; border-top-color: var(--accent); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Boot / error screen */
+.fatal { position: fixed; inset: 0; display: grid; place-items: center; padding: 24px; z-index: 50; }
+.fatal .card { background: #fff; border-radius: 18px; padding: 28px; max-width: 460px; text-align: center; display: grid; gap: 12px; justify-items: center; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+.fatal h2 { font-size: 22px; font-weight: 800; }
+.fatal p { color: var(--text-soft); line-height: 1.5; }
+
+/* Dialogs */
+#layer-dialogs { position: relative; z-index: 60; }
+.overlay { position: fixed; inset: 0; background: rgba(20,14,40,.35); z-index: 60; display: flex; justify-content: center; align-items: flex-start; padding-top: 110px; }
+.dialog {
+  width: min(430px, calc(100vw - 24px)); max-height: calc(100dvh - 140px); overflow: auto;
+  background: #fff; border-radius: 16px; padding: 22px; box-shadow: 0 24px 60px rgba(0,0,0,.35);
+}
+.dialog.wide { width: min(620px, calc(100vw - 24px)); }
+.dialog h2 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.dialog .body { font-size: 14px; line-height: 1.5; color: var(--text-soft); }
+.dialog .grabber { display: none; }
+.dialog .actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.dialog .actions .btn { min-height: 44px; border-radius: 10px; padding: 0 18px; }
+.dialog .actions .btn.danger-solid { background: var(--danger); color: #fff; border-color: transparent; font-weight: 800; }
+.dialog .error { color: var(--danger); font-size: 13px; font-weight: 600; margin-top: 8px; }
+.filelist { margin: 10px 0 0; padding: 0; list-style: none; font: 12px/1.6 ui-monospace, Consolas, monospace; background: var(--chrome); border-radius: 8px; padding: 8px 10px; color: var(--ink); }
+.filelist .del { color: var(--danger); }
+
+/* Toasts */
+#layer-toasts { position: fixed; left: 0; right: 0; bottom: calc(96px + var(--safe-bottom)); z-index: 90; display: grid; justify-items: center; gap: 8px; pointer-events: none; }
+.toast { pointer-events: auto; background: var(--ink); color: #fff; font-size: 14px; padding: 12px 18px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,.35); max-width: min(92vw, 560px); display: flex; gap: 12px; align-items: center; animation: toast-in .25s ease; }
+.toast a { color: #FFD9A0; font-weight: 700; }
+.toast.error { background: var(--danger); }
+@keyframes toast-in { from { opacity: 0; transform: translateY(10px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}

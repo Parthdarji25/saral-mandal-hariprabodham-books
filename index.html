@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://api.github.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Saral Mandal HariPrabodham: a free library of Swaminarayan scriptures and other spiritual books. Browse by folder, topic and A to Z, and read in your browser with a notebook beside the page.">
+<meta name="theme-color" content="#1F2358">
+<meta property="og:title" content="Saral Mandal HariPrabodham">
+<meta property="og:description" content="A spiritual PDF library: Swaminarayan scriptures and other books, read in the browser with a notebook.">
+<meta property="og:type" content="website">
+<title>Saral Mandal HariPrabodham</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/desktop.css">
+<link rel="stylesheet" href="css/library.css">
+<link rel="stylesheet" href="css/mobile.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/reader.css">
+</head>
+<body data-layout="desktop">
+<div id="wallpaper" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1F2358"/>
+        <stop offset="0.45" stop-color="#6E3F7E"/>
+        <stop offset="0.7" stop-color="#E07A5F"/>
+        <stop offset="1" stop-color="#F6BD7A"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#sky)"/>
+    <circle cx="720" cy="630" r="130" fill="#FFD9A0" opacity="0.85"/>
+    <path d="M0 640 C 180 560 340 600 520 640 S 900 700 1100 620 S 1340 590 1440 630 L1440 900 L0 900 Z" fill="#5A3B6E"/>
+    <path d="M0 720 C 200 660 380 700 600 730 S 1000 760 1200 700 S 1400 690 1440 710 L1440 900 L0 900 Z" fill="#3B2955"/>
+    <rect x="0" y="783" width="1440" height="117" fill="#251B40"/>
+    <ellipse cx="720" cy="806" rx="110" ry="5" fill="#FFD9A0" opacity="0.5"/>
+    <ellipse cx="720" cy="824" rx="70" ry="4" fill="#FFD9A0" opacity="0.35"/>
+    <g fill="#F4A9A0">
+      <path d="M720 828 C 710 842 712 852 720 858 C 728 852 730 842 720 828 Z"/>
+      <path d="M720 858 C 704 856 692 846 690 836 C 702 838 714 846 720 858 Z"/>
+      <path d="M720 858 C 736 856 748 846 750 836 C 738 838 726 846 720 858 Z"/>
+    </g>
+  </svg>
+</div>
+<div id="app"></div>
+<div id="layer-dialogs"></div>
+<div id="layer-toasts" aria-live="polite" role="status"></div>
+<noscript><p class="noscript">Saral Mandal HariPrabodham needs JavaScript to run. Please turn it on in your browser.</p></noscript>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/* Self-hosted fonts (no outside connections). Licences: fonts/OFL-fonts.txt */
+@font-face { font-family: "Manrope"; font-weight: 200; font-display: swap; src: url("../fonts/manrope-latin-200-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 400; font-display: swap; src: url("../fonts/manrope-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 500; font-display: swap; src: url("../fonts/manrope-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("../fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("../fonts/manrope-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 800; font-display: swap; src: url("../fonts/manrope-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/lora-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/lora-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: italic; font-weight: 400; font-display: swap; src: url("../fonts/lora-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: italic; font-weight: 600; font-display: swap; src: url("../fonts/lora-latin-600-italic.woff2") format("woff2"); }
+@font-face { font-family: "Kalam"; font-weight: 400; font-display: swap; src: url("../fonts/kalam-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hind Vadodara"; font-weight: 400; font-display: swap; unicode-range: U+0951-0952, U+0964-0965, U+0A80-0AFF, U+200C-200D, U+20B9, U+25CC; src: url("../fonts/hind-vadodara-gujarati-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hind Vadodara"; font-weight: 600; font-display: swap; unicode-range: U+0951-0952, U+0964-0965, U+0A80-0AFF, U+200C-200D, U+20B9, U+25CC; src: url("../fonts/hind-vadodara-gujarati-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hind Vadodara"; font-weight: 700; font-display: swap; unicode-range: U+0951-0952, U+0964-0965, U+0A80-0AFF, U+200C-200D, U+20B9, U+25CC; src: url("../fonts/hind-vadodara-gujarati-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hind Vadodara"; font-weight: 400; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; src: url("../fonts/hind-vadodara-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hind Vadodara"; font-weight: 600; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; src: url("../fonts/hind-vadodara-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hind Vadodara"; font-weight: 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; src: url("../fonts/hind-vadodara-latin-700-normal.woff2") format("woff2"); }
+
+:root {
+  --ink: #1F1B2D;
+  --muted: #6B6578;
+  --accent: #B4520F;
+  --accent-dark: #8A3D06;
+  --danger: #A3261A;
+  --window: #FFFFFF;
+  --chrome: #F7F5FA;
+  --sidebar: #F1EEF5;
+  --line: #E4E0EA;
+  --select: #FBE7D3;
+  --sidebar-active: #E3DCEC;
+  --app-bg: #F7F5FA;
+  --pdf-tag: #C8371D;
+  --paper: #FFFDF6;
+  --paper-line: #DCE3EC;
+  --paper-margin: #EBC2B8;
+  --note-ink: #24324F;
+
+  --border-soft: #D9D3E2;
+  --text-soft: #4E4860;
+  --panel: #FAF9FC;
+
+  --font-ui: "Manrope", "Hind Vadodara", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Lora", "Hind Vadodara", Georgia, serif;
+  --font-hand: "Kalam", "Hind Vadodara", "Segoe Print", cursive;
+  --font-gu: "Hind Vadodara", "Manrope", system-ui, sans-serif;
+
+  --radius-window: 14px;
+  --radius-btn: 10px;
+  --radius-tile: 10px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
